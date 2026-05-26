@@ -69,7 +69,12 @@ Instead of counting every detected bounding box in each frame (which would repea
 
 ---
 
-# 📌 Counting Algorithm
+## 📌 Counting Algorithm
+
+1. **Object Tracking:** Uses the Ultralytics built-in tracking algorithm to append a unique ID to every detected item across frames (`persist=True`).
+2. **Centroid Derivation:** The center coordinates $(C_x, C_y)$ of each vehicle bounding box are extracted:
+   $$C_x = \frac{x_1 + x_2}{2}, \quad C_y = \frac{y_1 + y_2}{2}$$
+3. **Tripwire Boundary Check:** When a specific tracking ID’s $C_y$ spatial coordinate crosses the designated `LINE_Y` plane, the system evaluates if that ID has been counted. If unique, the absolute integer `vehicle_count` increments and the ID is written into a memory stack (`counted_ids`).
 
 ## 1️⃣ Object Tracking
 
